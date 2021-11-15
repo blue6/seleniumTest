@@ -1,2 +1,2 @@
 import { jest } from "@jest/globals";
-jest.setTimeout(10000); // 10 seconds
+jest.setTimeout(30000); // 30 seconds
