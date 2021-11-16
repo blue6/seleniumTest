@@ -1,11 +1,7 @@
 import { By } from "selenium-webdriver";
-import Page from "./page";
+import { findElementBy } from "../utils";
 
-class SeleniumPage extends Page {
-  constructor(driver) {
-    super(driver);
-  }
-
+class SeleniumPage {
   get headingTextLocator() {
     return By.css("#firstHeading");
   }
@@ -15,12 +11,12 @@ class SeleniumPage extends Page {
   }
 
   getHeadingText() {
-    return this.findElementBy(this.headingTextLocator).getText();
+    return findElementBy(this.headingTextLocator).getText();
   }
 
   getRepositoryUrlText() {
-    return this.findElementBy(this.repositoryUrlLocator).getText();
+    return findElementBy(this.repositoryUrlLocator).getText();
   }
 }
 
-export default SeleniumPage;
+export default new SeleniumPage();

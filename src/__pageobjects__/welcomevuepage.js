@@ -1,18 +1,14 @@
 import { By } from "selenium-webdriver";
-import Page from "./page";
+import { findElementBy } from "../utils";
 
-class WelcomeVuePage extends Page {
-  constructor(driver) {
-    super(driver);
-  }
-
+class WelcomeVuePage {
   get headingTextLocator() {
     return By.css("h1");
   }
 
   getHeadingText() {
-    return this.findElementBy(this.headingTextLocator).getText();
+    return findElementBy(this.headingTextLocator).getText();
   }
 }
 
-export default WelcomeVuePage;
+export default new WelcomeVuePage();

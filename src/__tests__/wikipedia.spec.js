@@ -1,14 +1,10 @@
 import { afterAll, beforeAll, describe, expect, test } from "@jest/globals";
-import { getChromeDriver } from "../driver-factory";
+import { driver } from "../driver-factory";
 import HomePage from "../__pageobjects__/homepage";
-
-let driver;
-let homePage;
-let seleniumPage;
+import SeleniumPage from "../__pageobjects__/seleniumpage";
 
 beforeAll(async () => {
-  driver = await getChromeDriver();
-  await driver.navigate().to("https://wikipedia.org");
+  await driver.navigateTo("https://wikipedia.org");
 });
 
 afterAll(async () => {
@@ -18,15 +14,15 @@ afterAll(async () => {
 describe("Selenium wiki page", () => {
   test("should be opened as successfully", async () => {
     //await driver.sleep(1000);
-    homePage = new HomePage(driver);
-    await homePage.searchLanguageSelect();
-    await homePage.wikiSearch("Selenium (software)");
-    seleniumPage = await homePage.searchButton();
-    expect(await seleniumPage.getHeadingText()).toEqual("Selenium (software)");
+
+    await HomePage.searchLanguageSelect();
+    await HomePage.wikiSearch("Selenium (software)");
+    await HomePage.searchButton();
+    expect(await SeleniumPage.getHeadingText()).toEqual("Selenium (software)");
   });
 
   test("contains the correct repository URL", async () => {
-    expect(await seleniumPage.getRepositoryUrlText()).toEqual(
+    expect(await SeleniumPage.getRepositoryUrlText()).toEqual(
       "github.com/SeleniumHQ/"
     );
   });

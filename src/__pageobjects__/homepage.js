@@ -1,12 +1,7 @@
 import { By } from "selenium-webdriver";
-import Page from "./page";
-import SeleniumPage from "./seleniumpage";
+import { findElementBy } from "../utils";
 
-class HomePage extends Page {
-  constructor(driver) {
-    super(driver);
-  }
-
+class HomePage {
   get searchInputLocator() {
     return By.css("#searchInput");
   }
@@ -22,17 +17,16 @@ class HomePage extends Page {
   }
 
   searchLanguageSelect() {
-    return this.findElementBy(this.searchLanguageLocator).click();
+    return findElementBy(this.searchLanguageLocator).click();
   }
 
   wikiSearch(item) {
-    return this.findElementBy(this.searchInputLocator).sendKeys(item);
+    return findElementBy(this.searchInputLocator).sendKeys(item);
   }
 
   async searchButton() {
-    await this.findElementBy(this.searchButtonLocator).click();
-    return new SeleniumPage(this.driver);
+    return findElementBy(this.searchButtonLocator).click();
   }
 }
 
-export default HomePage;
+export default new HomePage();
