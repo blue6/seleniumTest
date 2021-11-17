@@ -1,8 +1,28 @@
-version: "3.7"
+version: "3.9"
 
 services:
-  app:
-    image: selenium
-    working_dir: /app
-    volumes:
-      - ./:/app
+  web:
+    image: test-vue:latest
+    networks:
+      e2etest:
+        aliases:
+          - vue
+    ports:
+      - 8081:8080
+  selenium:
+    build: .
+    image: selenium:latest
+    #network_mode: "host"
+    networks:
+      - e2etest
+    command: bash -c "sleep 10 && npm run test"
+    environment:
+      - TESTVUE_URL=http://web:8080/
+      #- TESTVUE_URL=http://vue:8080/
+      #- TESTVUE_URL=http://seleniumtest_web_1:8080/
+      #- TESTVUE_URL=http://192.168.32.2:8080/
+    #depends_on:
+    #  - web
+
+networks:
+  e2etest:
